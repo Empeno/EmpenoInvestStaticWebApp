@@ -9,7 +9,7 @@ const About = () => (
         with React. The shopping theme is used throughout the app.
       </p>
       <br />
-      <h2 className="title">Resources</h2>
+      <h2 className="title">Resources in new version</h2>
       <ul>
         <li>
           <a href="https://github.com/MicrosoftDocs/mslearn-staticwebapp">
