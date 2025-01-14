@@ -1,0 +1,78 @@
+import { MdAdminPanelSettings, MdInsertChart, MdSpaceDashboard } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import ProfileTab from "../components/ProfileTab";
+import LoginModal from "../components/modals/LoginModal";
+
+const Navbar = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+
+  return (
+    <div className="flex md:flex-col justify-between items-center md:h-full bg-base-100 rounded-lg  md:fixed py-5 pr-5 md:py-0 md:pr-0">
+      <div className="flex flex-col md:gap-7  ">
+        <div className="pl-7 md:p-7">
+          <a className="text-xl font-black text-primary">EMPENO INVEST</a>
+        </div>
+        <div className=" hidden md:flex flex-col">
+          <span className="text-sm text-gray-400 font-bold pl-6">Overview</span>
+          <ul className="menu rounded-box w-56 menu-lg tracking-wide gap-2">
+            <li>
+              <NavLink to="/">
+                <MdSpaceDashboard />
+                Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/analytics">
+                <MdInsertChart />
+                Analytics
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        {isAuthenticated && (
+          <div className=" hidden md:flex flex-col">
+            <span className="text-sm text-gray-400 font-bold pl-6">Admin</span>
+            <ul className="menu rounded-box w-56 menu-lg tracking-wide gap-2">
+              <li>
+                <NavLink to="/admin">
+                  <MdAdminPanelSettings />
+                  Admin
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+      <div className="flex md:hidden fixed bottom-7 left-1/2 transform -translate-x-1/2 w-full justify-center">
+        <ul className="menu menu-horizontal menu-lg bg-base-200 rounded-box">
+          <li>
+            <NavLink to="/">
+              <MdSpaceDashboard size={25} />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/analytics">
+              <MdInsertChart size={25} />
+            </NavLink>
+          </li>
+          {isAuthenticated && (
+            <li>
+              <NavLink to="/admin">
+                <MdAdminPanelSettings size={25} />
+              </NavLink>
+            </li>
+          )}
+        </ul>
+      </div>
+
+      <span className="text-neutral text-xs p-5 hidden md:flex">© Empeno 2025</span>
+      <div className="flex md:hidden">
+        {isAuthenticated && <ProfileTab />} {!isAuthenticated && <LoginModal />}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;

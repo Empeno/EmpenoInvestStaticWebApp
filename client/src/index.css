@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	background-color: oklch(var(--b2));
+}
+
+body {
+	height: 100%;
+}
+
+.tab-active {
+	background-color: oklch(var(--b1));
+	border-radius: 8px;
+}
