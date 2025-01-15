@@ -11,6 +11,7 @@ const Analytics = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        console.log('Response:', response);
         const { text } = await response.json();
         setData(text);
       } catch (error) {
