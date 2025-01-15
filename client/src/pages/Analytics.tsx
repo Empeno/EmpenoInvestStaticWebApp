@@ -18,9 +18,10 @@ const Analytics = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         console.log('Response:', response);
-        const jsonData: Data = await response.json();
+        const jsonData = await response.json();
         console.log('Fetched Data:', jsonData);
-        setData(jsonData);
+
+        setData(jsonData.data);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError(error instanceof Error ? error.message : 'Unknown error');
