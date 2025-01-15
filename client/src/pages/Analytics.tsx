@@ -19,6 +19,7 @@ const Analytics = () => {
         }
         console.log('Response:', response);
         const jsonData: Data = await response.json();
+        console.log('Fetched Data:', jsonData);
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
