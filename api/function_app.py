@@ -8,12 +8,25 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     try:        
         response_data = {
-            "message": "Hello, Azure Functions!",
-            "success": True,
-            "data": {
-                "key1": "value1",
-                "key2": "value2",
-                "danskebank": "103"
+            "user": {
+                "name": "John Doe",
+                "email": "john.doe@example.com",
+                "portfolio": [
+                    {
+                        "stock": "Danske Bank",
+                        "ticker": "DANSKE",
+                        "quantity": 150,
+                        "purchasePrice": 100,
+                        "currentPrice": 103
+                    },
+                    {
+                        "stock": "Novo Nordisk",
+                        "ticker": "NOVO-B",
+                        "quantity": 50,
+                        "purchasePrice": 940,
+                        "currentPrice": 960
+                    }
+                ]
             }
         }
         
@@ -33,9 +46,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
             status_code=500,
             mimetype="application/json"
         )
-    
-    
-
 
 
 

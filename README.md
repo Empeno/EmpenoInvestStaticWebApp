@@ -5,8 +5,8 @@ languages:
   - typescript
 products:
   - azure functions
-description: 'Apps that can be used with as a starting point for some MS Learn Modules.'
-urlFragment: 'https://github.com/MicrosoftDocs/mslearn-staticwebapp'
+description: "Apps that can be used with as a starting point for some MS Learn Modules."
+urlFragment: "https://github.com/MicrosoftDocs/mslearn-staticwebapp"
 ---
 
 # Official Microsoft Sample
@@ -77,9 +77,7 @@ The apps written in the following JavaScript frameworks/libraries:
 
 ### Debugging Resources
 
-- [Debugging Angular in VS Code](https://code.visualstudio.com/docs/nodejs/angular-tutorial?wt.mc_id=mslearn_staticwebapp-github-jopapa)
 - [Debugging React in VS Code](https://code.visualstudio.com/docs/nodejs/reactjs-tutorial?wt.mc_id=mslearn_staticwebapp-github-jopapa)
-- [Debugging Vue in VS Code](https://code.visualstudio.com/docs/nodejs/vuejs-tutorial?wt.mc_id=mslearn_staticwebapp-github-jopapa)
 
 ## Contributing
 
@@ -94,3 +92,7 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+### Run Locally client and api with azure functions
+
+swa start client/dist --api-location api

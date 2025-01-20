@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
 
+interface PortfolioItem {
+  stock: string;
+  ticker: string;
+  quantity: number;
+  purchasePrice: number;
+  currentPrice: number;
+}
+
 interface Data {
-  key1: string;
-  key2: string;
-  danskebank: string;
+  name: string;
+  email: string;
+  portfolio: PortfolioItem[];
 }
 
 const Analytics = () => {
@@ -17,11 +25,15 @@ const Analytics = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        console.log('Response:', response);
+
         const jsonData = await response.json();
         console.log('Fetched Data:', jsonData);
 
-        setData(jsonData.data);
+        setData({
+          name: jsonData.user.name,
+          email: jsonData.user.email,
+          portfolio: jsonData.user.portfolio,
+        });
       } catch (error) {
         console.error('Error fetching data:', error);
         setError(error instanceof Error ? error.message : 'Unknown error');
@@ -35,10 +47,21 @@ const Analytics = () => {
         {error ? (
           <div>Error: {error}</div>
         ) : (
-          <div>
-            <div>{data?.key1}</div>
-            <div>{data?.key2}</div>
-            <div>{data?.danskebank}</div>
+          <div className="p-3">
+            <div>{data?.name}</div>
+            <div>{data?.email}</div>
+            <div>
+              <h3>Portfolio:</h3>
+              {data?.portfolio.map((item, index) => (
+                <div key={index}>
+                  <div>Stock: {item.stock}</div>
+                  <div>Ticker: {item.ticker}</div>
+                  <div>Quantity: {item.quantity}</div>
+                  <div>Purchase Price: {item.purchasePrice}</div>
+                  <div>Current Price: {item.currentPrice}</div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
