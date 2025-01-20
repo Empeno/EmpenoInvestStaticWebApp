@@ -6,7 +6,7 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
-    try:        
+    try:
         response_data = {
             "user": {
                 "name": "John Doe",
@@ -31,6 +31,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         }
         
         response_json = json.dumps(response_data)
+        logging.info(f"Response Data: {response_json}")
                 
         return func.HttpResponse(
             response_json,
@@ -41,6 +42,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
         error_message = {
             "error": str(e)
         }
+        logging.error(f"Error: {error_message}")
         return func.HttpResponse(
             json.dumps(error_message),
             status_code=500,
