@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
 interface AuthContextProps {
   isAuthenticated: boolean;
@@ -20,16 +20,36 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    (async () => {
+      const userInfo = await getUserInfo();
+      if (userInfo) {
+        setIsAuthenticated(true);
+      }
+    })();
   }, []);
 
+  async function getUserInfo() {
+    try {
+      const response = await fetch('/.auth/me');
+      const payload = await response.json();
+      const { clientPrincipal } = payload;
+      return clientPrincipal;
+    } catch (error) {
+      console.error('No profile could be found');
+      return undefined;
+    }
+  }
+
   const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
+    const redirect = window.location.origin;
+    window.location.href = `/.auth/logout?post_logout_redirect_uri=${redirect}`;
   };
 
-  return <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

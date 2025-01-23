@@ -1,11 +1,14 @@
-import { useState } from "react";
-import Login from "../auth/Login";
+import { useState } from 'react';
+import Login from '../auth/Login';
 const LoginModal = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <button className="btn  flex justify-start" onClick={() => setShowModal(true)}>
+      <button
+        className="btn  flex justify-start"
+        onClick={() => setShowModal(true)}
+      >
         Admin Login
       </button>
 

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EMPENO INVEST</title>
 </head>
@@ -14,76 +14,76 @@
 
   <blockquote>
     Open the console in the browser developer tools to see the API responses.
-</blockquote>
-<div style="margin-left: 500px;">
+  </blockquote>
+  <div style="margin-left: 500px;">
     <button id="list" onclick="list()">List</button>
     <button id="get" onclick="get()">Get</button>
     <button id="update" onclick="update()">Update</button>
     <button id="create" onclick="create()">Create</button>
     <button id="delete" onclick="del()">Delete</button>
-</div>
-<script>
+  </div>
+  <script>
     async function list() {
-  const endpoint = '/data-api/rest/Person';
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  console.table(data.value);
-}
+      const endpoint = '/data-api/rest/Person';
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      console.table(data.value);
+    }
 
-async function get() {
-  const id = 1;
-  const endpoint = `/data-api/rest/Person/Id`;
-  const response = await fetch(`${endpoint}/${id}`);
-  const result = await response.json();
-  console.table(result.value);
-}
+    async function get() {
+      const id = 1;
+      const endpoint = `/data-api/rest/Person/Id`;
+      const response = await fetch(`${endpoint}/${id}`);
+      const result = await response.json();
+      console.table(result.value);
+    }
 
-async function update() {
+    async function update() {
 
-const id = 1;
-const data = {
-  Name: "Molly"
-};
+      const id = 1;
+      const data = {
+        Name: "Molly"
+      };
 
-const endpoint = '/data-api/rest/Person/Id';
-const response = await fetch(`${endpoint}/${id}`, {
-  method: "PUT",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data)
-});
-const result = await response.json();
-console.table(result.value);
-}
+      const endpoint = '/data-api/rest/Person/Id';
+      const response = await fetch(`${endpoint}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      console.table(result.value);
+    }
 
-async function create() {
+    async function create() {
 
-const data = {
-  Name: "Pedro"
-};
+      const data = {
+        Name: "Pedro"
+      };
 
-const endpoint = `/data-api/rest/Person/`;
-const response = await fetch(endpoint, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data)
-});
-const result = await response.json();
-console.table(result.value);
-}
+      const endpoint = `/data-api/rest/Person/`;
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      console.table(result.value);
+    }
 
-async function del() {
-  const id = 3;
-  const endpoint = '/data-api/rest/Person/Id';
-  const response = await fetch(`${endpoint}/${id}`, {
-    method: "DELETE"
-  });
-  if(response.ok) {
-    console.log(`Record deleted: ${ id }`)
-  } else {
-    console.log(response);
-  }
-}
-</script>
+    async function del() {
+      const id = 3;
+      const endpoint = '/data-api/rest/Person/Id';
+      const response = await fetch(`${endpoint}/${id}`, {
+        method: "DELETE"
+      });
+      if (response.ok) {
+        console.log(`Record deleted: ${id}`)
+      } else {
+        console.log(response);
+      }
+    }
+  </script>
 </body>
 
 </html>
