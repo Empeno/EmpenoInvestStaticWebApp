@@ -1,7 +1,13 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
+interface User {
+  name: string;
+  email: string;
+}
+
 interface AuthContextProps {
   isAuthenticated: boolean;
+  user: User | null;
   setIsAuthenticated: (value: boolean) => void;
   logout: () => void;
 }
@@ -12,18 +18,21 @@ interface AuthProviderProps {
 
 export const AuthContext = createContext<AuthContextProps>({
   isAuthenticated: false,
+  user: null,
   setIsAuthenticated: () => {},
   logout: () => {},
 });
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     (async () => {
       const userInfo = await getUserInfo();
       if (userInfo) {
         setIsAuthenticated(true);
+        setUser({ name: userInfo.userDetails, email: userInfo.userId });
       }
     })();
   }, []);
@@ -47,7 +56,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, logout }}
+      value={{ isAuthenticated, user, setIsAuthenticated, logout }}
     >
       {children}
     </AuthContext.Provider>

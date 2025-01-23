@@ -4,14 +4,14 @@ import { AuthContext } from '../context/AuthContext';
 import ThemeSwitch from './ThemeSwitch';
 
 const ProfileTab = () => {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   return (
     <div className="dropdown dropdown-bottom dropdown-end">
       <div tabIndex={0} role="button" className="flex items-center gap-2">
-        <span className="text-sm">Marc</span>
+        <span className="text-sm">{user?.name}</span>
         <div className="avatar placeholder">
           <div className="bg-neutral text-neutral-content w-10 rounded-full">
-            <span className="text-sm">UI</span>
+            <span className="text-sm">{user?.name?.charAt(0)}</span>
           </div>
         </div>
       </div>
