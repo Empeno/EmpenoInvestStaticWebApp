@@ -3,7 +3,6 @@ import ProfileTab from '../components/ProfileTab';
 import { AuthContext } from '../context/AuthContext';
 import LoginModal from '../components/modals/LoginModal';
 import ThemeSwitch from '../components/ThemeSwitch';
-import { NavLink } from 'react-router-dom';
 
 interface TopbarProps {
   title: string;
