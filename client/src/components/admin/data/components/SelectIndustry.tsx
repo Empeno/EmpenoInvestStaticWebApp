@@ -7,13 +7,13 @@ interface Industry {
   Description: string;
 }
 
-const SelectIndustry = ({
-  onIndustryCreated,
-}: {
-  onIndustryCreated: () => void;
-}) => {
+const SelectIndustry = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [industries, setIndustries] = useState<Industry[]>([]);
+
+  const handleIndustryCreated = (newIndustry: Industry) => {
+    setIndustries((prevIndustries) => [...prevIndustries, newIndustry]);
+  };
 
   useEffect(() => {
     const fetchIndustries = async () => {
@@ -65,7 +65,7 @@ const SelectIndustry = ({
             </option>
           ))}
         </select>
-        <CreateIndustry onIndustryCreated={onIndustryCreated} />
+        <CreateIndustry onIndustryCreated={handleIndustryCreated} />
       </label>
     </div>
   );

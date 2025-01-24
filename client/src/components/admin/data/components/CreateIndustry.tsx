@@ -3,7 +3,7 @@ import { useState } from 'react';
 const CreateIndustry = ({
   onIndustryCreated,
 }: {
-  onIndustryCreated: () => void;
+  onIndustryCreated: (newIndustry: any) => void;
 }) => {
   const [industryModal, setIndustryModal] = useState(false);
   const [industryName, setIndustryName] = useState('');
@@ -36,7 +36,7 @@ const CreateIndustry = ({
       setIndustryModal(false);
       setIndustryName('');
       setIndustryDescription('');
-      onIndustryCreated(); // Trigger the toast notification
+      onIndustryCreated(result); // Send the new industry back to SelectIndustry
     } catch (err) {
       const errorMessage = (err as Error).message;
       console.error('Error:', errorMessage);

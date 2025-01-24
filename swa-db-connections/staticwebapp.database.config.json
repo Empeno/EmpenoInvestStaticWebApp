@@ -38,6 +38,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "Stocks": {
+      "source": "dbo.Industries",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }
