@@ -20,8 +20,12 @@ const CreateIndustry = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+      console.log('Response status:', response.status);
       if (!response.ok) {
-        throw new Error(`Failed to create industry: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(
+          `Failed to create industry: ${response.status} - ${errorText}`,
+        );
       }
       const result = await response.json();
       console.log('Industry created successfully!', result);
@@ -30,14 +34,15 @@ const CreateIndustry = () => {
       setIndustryDescription('');
     } catch (err) {
       const errorMessage = (err as Error).message;
-      console.error(errorMessage);
+      console.error('Error:', errorMessage);
       setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!industryName || !industryDescription) {
       setError('Please fill out all fields.');
       return;
@@ -58,7 +63,10 @@ const CreateIndustry = () => {
         <div className="modal modal-open">
           <div className="modal-box w-auto max-w-5xl flex flex-col gap-2 md:p-12">
             <h3 className="font-bold text-xl">Create industry category</h3>
-            <div className="modal-action flex flex-col gap-5">
+            <form
+              onSubmit={handleSubmit}
+              className="modal-action flex flex-col gap-5"
+            >
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Industry Name</span>
@@ -86,16 +94,20 @@ const CreateIndustry = () => {
               </div>
               {error && <p className="text-red-500">{error}</p>}
               <button
+                type="submit"
                 className="btn btn-primary"
-                onClick={handleSubmit}
                 disabled={loading}
               >
                 {loading ? 'Creating...' : 'Create'}
               </button>
-              <button className="btn" onClick={() => setIndustryModal(false)}>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => setIndustryModal(false)}
+              >
                 Close
               </button>
-            </div>
+            </form>
           </div>
         </div>
       )}

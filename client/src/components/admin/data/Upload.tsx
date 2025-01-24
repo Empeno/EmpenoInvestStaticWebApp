@@ -32,9 +32,7 @@ const Upload = () => {
         </label>
       </div>
       <div className="flex flex-col gap-5">
-        <form action="" className="flex flex-col gap-5 justify-start w-96">
-          {isManual ? <UploadManuel /> : <UploadFile />}
-        </form>
+        {isManual ? <UploadManuel /> : <UploadFile />}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <div className="flex md:flex-col justify-between items-center md:h-full bg-base-100 rounded-lg  md:fixed py-5 pr-5 md:py-0 md:pr-0">
       <div className="flex flex-col md:gap-7">
-        <div className="pl-7 md:px-7 md:py-10 w-52">
+        <div className="pl-7 md:px-7 md:py-9 w-52">
           <img
             src={theme === 'cmyk' ? logoBlack : logoWhite}
             alt="Empeno Logo"
