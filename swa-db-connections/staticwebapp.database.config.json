@@ -38,6 +38,15 @@
           "role": "anonymous"
         }
       ]
+    },
+    "Industries": {
+      "source": "dbo.Industries",
+      "permissions": [
+        {
+          "actions": ["*"],
+          "role": "anonymous"
+        }
+      ]
     }
   }
 }

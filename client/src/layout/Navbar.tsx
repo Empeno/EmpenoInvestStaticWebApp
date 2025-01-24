@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import ProfileTab from '../components/ProfileTab';
-import LoginModal from '../components/modals/LoginModal';
+import LoginModal from '../components/auth/LoginModal';
 import logoBlack from '../assets/EmpenoInvestBlack.png';
 import logoWhite from '../assets/EmpenoInvestWhite.png';
 import { ThemeContext } from '../context/ThemeContext';

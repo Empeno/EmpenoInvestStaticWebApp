@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import ProfileTab from '../components/ProfileTab';
 import { AuthContext } from '../context/AuthContext';
-import LoginModal from '../components/modals/LoginModal';
+import LoginModal from '../components/auth/LoginModal';
 import ThemeSwitch from '../components/ThemeSwitch';
 
 interface TopbarProps {
