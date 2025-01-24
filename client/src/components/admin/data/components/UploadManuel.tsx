@@ -9,10 +9,6 @@ const UploadManuel = () => {
     setTimeout(() => setShowToast(false), 3000);
   };
 
-  const handleCreateManual = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="flex flex-col gap-5 ">
       <SelectIndustry onIndustryCreated={handleIndustryCreated} />
