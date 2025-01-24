@@ -7,12 +7,21 @@ interface Industry {
   Description: string;
 }
 
-const SelectIndustry = () => {
+interface SelectIndustryProps {
+  onIndustryCreated?: (newIndustry: Industry) => void;
+}
+
+const SelectIndustry: React.FC<SelectIndustryProps> = ({
+  onIndustryCreated,
+}) => {
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [industries, setIndustries] = useState<Industry[]>([]);
 
   const handleIndustryCreated = (newIndustry: Industry) => {
     setIndustries((prevIndustries) => [...prevIndustries, newIndustry]);
+    if (onIndustryCreated) {
+      onIndustryCreated(newIndustry);
+    }
   };
 
   useEffect(() => {
