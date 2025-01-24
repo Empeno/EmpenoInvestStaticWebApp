@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-const CreateIndustry = () => {
+const CreateIndustry = ({
+  onIndustryCreated,
+}: {
+  onIndustryCreated: () => void;
+}) => {
   const [industryModal, setIndustryModal] = useState(false);
   const [industryName, setIndustryName] = useState('');
   const [industryDescription, setIndustryDescription] = useState('');
@@ -32,6 +36,7 @@ const CreateIndustry = () => {
       setIndustryModal(false);
       setIndustryName('');
       setIndustryDescription('');
+      onIndustryCreated(); // Trigger the toast notification
     } catch (err) {
       const errorMessage = (err as Error).message;
       console.error('Error:', errorMessage);

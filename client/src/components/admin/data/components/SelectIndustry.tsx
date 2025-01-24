@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import CreateIndustry from './CreateIndustry';
 
-const SelectIndustry = () => {
+const SelectIndustry = ({
+  onIndustryCreated,
+}: {
+  onIndustryCreated: () => void;
+}) => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>('');
   const [industries, setIndustries] = useState<string[]>([]);
 
@@ -13,7 +17,13 @@ const SelectIndustry = () => {
           throw new Error('Failed to fetch industries');
         }
         const data = await response.json();
-        setIndustries(data.map((industry: { Name: string }) => industry.Name));
+        if (Array.isArray(data)) {
+          setIndustries(
+            data.map((industry: { Name: string }) => industry.Name),
+          );
+        } else {
+          throw new Error('Fetched data is not an array');
+        }
       } catch (error) {
         console.error('Error fetching industries:', error);
       }
@@ -42,7 +52,7 @@ const SelectIndustry = () => {
             </option>
           ))}
         </select>
-        <CreateIndustry />
+        <CreateIndustry onIndustryCreated={onIndustryCreated} />
       </label>
     </div>
   );
