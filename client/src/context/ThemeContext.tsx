@@ -7,13 +7,13 @@ interface ThemeContextType {
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: 'winter',
+  theme: 'cmyk',
   toggleTheme: () => {},
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<string>(() => {
-    return localStorage.getItem('theme') || 'winter';
+    return localStorage.getItem('cmyk') || 'winter';
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'winter' ? 'night' : 'winter'));
+    setTheme((prevTheme) => (prevTheme === 'cmyk' ? 'night' : 'cmyk'));
   };
 
   return (

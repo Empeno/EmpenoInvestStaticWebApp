@@ -11,6 +11,6 @@ export default {
     },
     plugins: [daisyui],
     daisyui: {
-        themes: ["winter", "night"],
+        themes: ["cmyk", "night"],
     },
 };

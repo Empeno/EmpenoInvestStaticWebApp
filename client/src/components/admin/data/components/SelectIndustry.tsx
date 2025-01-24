@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 import CreateIndustry from './CreateIndustry';
 
+interface Industry {
+  Id: number;
+  Name: string;
+  Description: string;
+}
+
 const SelectIndustry = ({
   onIndustryCreated,
 }: {
   onIndustryCreated: () => void;
 }) => {
-  const [selectedIndustry, setSelectedIndustry] = useState<string>('');
-  const [industries, setIndustries] = useState<string[]>([]);
+  const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
+  const [industries, setIndustries] = useState<Industry[]>([]);
 
   useEffect(() => {
     const fetchIndustries = async () => {
@@ -18,14 +24,14 @@ const SelectIndustry = ({
         }
         const data = await response.json();
         if (
-          Array.isArray(data) &&
-          data.every(
-            (industry) => industry && typeof industry.Name === 'string',
+          data.value &&
+          Array.isArray(data.value) &&
+          data.value.every(
+            (industry: Industry) =>
+              industry && typeof industry.Name === 'string',
           )
         ) {
-          setIndustries(
-            data.map((industry: { Name: string }) => industry.Name),
-          );
+          setIndustries(data.value); // Set the entire industry object
         } else {
           throw new Error(
             'Fetched data is not an array of objects with Name property',
@@ -47,15 +53,15 @@ const SelectIndustry = ({
         </div>
         <select
           className="select select-bordered"
-          value={selectedIndustry}
-          onChange={(e) => setSelectedIndustry(e.target.value)}
+          value={selectedIndustry ?? ''}
+          onChange={(e) => setSelectedIndustry(Number(e.target.value))}
         >
           <option disabled value="">
             Pick one
           </option>
           {industries.map((industry) => (
-            <option key={industry} value={industry}>
-              {industry}
+            <option key={industry.Id} value={industry.Id}>
+              {industry.Name}
             </option>
           ))}
         </select>
