@@ -1,8 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CreateIndustry from './CreateIndustry';
 
 const SelectIndustry = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState<string>('Star Wars');
+  const [selectedIndustry, setSelectedIndustry] = useState<string>('');
+  const [industries, setIndustries] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchIndustries = async () => {
+      try {
+        const response = await fetch('/data-api/rest/Industries');
+        if (!response.ok) {
+          throw new Error('Failed to fetch industries');
+        }
+        const data = await response.json();
+        setIndustries(data.map((industry: { Name: string }) => industry.Name));
+      } catch (error) {
+        console.error('Error fetching industries:', error);
+      }
+    };
+
+    fetchIndustries();
+  }, []);
 
   return (
     <div className="flex flex-col relative">
@@ -18,11 +36,11 @@ const SelectIndustry = () => {
           <option disabled value="">
             Pick one
           </option>
-          <option value="Star Wars">Star Wars</option>
-          <option value="Harry Potter">Harry Potter</option>
-          <option value="Lord of the Rings">Lord of the Rings</option>
-          <option value="Planet of the Apes">Planet of the Apes</option>
-          <option value="Star Trek">Star Trek</option>
+          {industries.map((industry) => (
+            <option key={industry} value={industry}>
+              {industry}
+            </option>
+          ))}
         </select>
         <CreateIndustry />
       </label>

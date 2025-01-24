@@ -56,17 +56,14 @@ const CreateIndustry = () => {
         className="link link-primary flex justify-end"
         onClick={() => setIndustryModal(true)}
       >
-        Create industry category
+        Create New Industry?
       </button>
 
       {industryModal && (
         <div className="modal modal-open">
-          <div className="modal-box w-auto max-w-5xl flex flex-col gap-2 md:p-12">
-            <h3 className="font-bold text-xl">Create industry category</h3>
-            <form
-              onSubmit={handleSubmit}
-              className="modal-action flex flex-col gap-5"
-            >
+          <div className="modal-box flex flex-col gap-2 md:p-12">
+            <h3 className="font-bold text-xl">Create New Industry</h3>
+            <form onSubmit={handleSubmit} className=" flex flex-col gap-5">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Industry Name</span>
@@ -93,20 +90,22 @@ const CreateIndustry = () => {
                 ></textarea>
               </div>
               {error && <p className="text-red-500">{error}</p>}
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={loading}
-              >
-                {loading ? 'Creating...' : 'Create'}
-              </button>
-              <button
-                type="button"
-                className="btn"
-                onClick={() => setIndustryModal(false)}
-              >
-                Close
-              </button>
+              <div className="modal-action">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={loading}
+                >
+                  {loading ? 'Creating...' : 'Create'}
+                </button>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={() => setIndustryModal(false)}
+                >
+                  Close
+                </button>
+              </div>
             </form>
           </div>
         </div>
