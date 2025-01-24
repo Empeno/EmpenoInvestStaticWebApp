@@ -17,12 +17,19 @@ const SelectIndustry = ({
           throw new Error('Failed to fetch industries');
         }
         const data = await response.json();
-        if (Array.isArray(data)) {
+        if (
+          Array.isArray(data) &&
+          data.every(
+            (industry) => industry && typeof industry.Name === 'string',
+          )
+        ) {
           setIndustries(
             data.map((industry: { Name: string }) => industry.Name),
           );
         } else {
-          throw new Error('Fetched data is not an array');
+          throw new Error(
+            'Fetched data is not an array of objects with Name property',
+          );
         }
       } catch (error) {
         console.error('Error fetching industries:', error);

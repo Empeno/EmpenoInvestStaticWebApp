@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="flex flex-col md:gap-7">
         <div className="pl-7 md:px-7 md:py-9 w-52">
           <img
-            src={theme === 'cmyk' ? logoBlack : logoWhite}
+            src={theme === 'winter' ? logoBlack : logoWhite}
             alt="Empeno Logo"
             className=""
           />

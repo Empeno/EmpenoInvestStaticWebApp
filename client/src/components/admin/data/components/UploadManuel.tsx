@@ -20,7 +20,7 @@ const UploadManuel = () => {
       />
 
       {showToast && (
-        <div className="toast toast-end toast-middle">
+        <div className="toast toast-end">
           <div className="alert alert-success">
             <span>Industry created successfully.</span>
           </div>
