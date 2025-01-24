@@ -18,7 +18,9 @@ const SelectIndustry = ({
   useEffect(() => {
     const fetchIndustries = async () => {
       try {
-        const response = await fetch('/data-api/rest/Industries');
+        const response = await fetch(
+          'http://localhost:7071/api/data-api/rest/Industries',
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch industries');
         }

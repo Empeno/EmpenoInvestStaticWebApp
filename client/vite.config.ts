@@ -7,4 +7,11 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  server: {
+    port: 5173, // Indstil porten til udviklingsserveren
+    hmr: {
+      clientPort: 5173, // Angiv porten, som WebSocket skal bruge
+      protocol: 'ws', // Sørg for, at WebSocket bruger korrekt protokol
+    },
+  },
 });
