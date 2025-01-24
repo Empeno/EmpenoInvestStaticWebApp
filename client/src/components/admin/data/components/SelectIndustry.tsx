@@ -19,7 +19,7 @@ const SelectIndustry = ({
     const fetchIndustries = async () => {
       try {
         const response = await fetch(
-          'http://localhost:7071/api/data-api/rest/Industries',
+          'http://localhost:7071/data-api/rest/Industries',
         );
         if (!response.ok) {
           throw new Error('Failed to fetch industries');
