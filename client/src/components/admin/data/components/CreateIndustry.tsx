@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const CreateIndustry = () => {
   const [industryModal, setIndustryModal] = useState(false);
@@ -6,10 +6,6 @@ const CreateIndustry = () => {
   const [industryDescription, setIndustryDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    console.log('Industry Modal State: ', industryModal);
-  }, [industryModal]);
 
   const createIndustry = async () => {
     setLoading(true);

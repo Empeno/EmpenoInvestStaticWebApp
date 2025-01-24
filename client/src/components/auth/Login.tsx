@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from 'react';
-import AxiosInstance from '../../utils/AxiosIntance';
+import { useState, useContext } from 'react';
+
 import { AuthContext } from '../../context/AuthContext';
 import { FaGithub, FaMicrosoft, FaUser } from 'react-icons/fa';
 import { FaKey } from 'react-icons/fa6';
@@ -13,34 +13,11 @@ const Login = ({ setShowModal }: LoginProps) => {
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const { setIsAuthenticated } = useContext(AuthContext);
-  const [userInfo, setUserInfo] = useState();
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const providers: { [key: string]: string } = {
     github: 'GitHub',
     aad: 'Microsoft',
   };
-
-  useEffect(() => {
-    (async () => {
-      const user = await getUserInfo();
-      setUserInfo(user);
-      if (user) {
-        window.location.href = '/';
-      }
-    })();
-  }, []);
-
-  async function getUserInfo() {
-    try {
-      const response = await fetch('/.auth/me');
-      const payload = await response.json();
-      const { clientPrincipal } = payload;
-      return clientPrincipal;
-    } catch (error) {
-      console.error('No profile could be found');
-      return undefined;
-    }
-  }
 
   const handleStandardLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,19 +25,24 @@ const Login = ({ setShowModal }: LoginProps) => {
     setError(null);
 
     try {
-      const response = await AxiosInstance.post(`users/login/`, {
-        username,
-        password,
+      const response = await fetch('/data-api/rest/Users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
 
-      localStorage.setItem('token', response.data.token);
+      if (!response.ok) {
+        throw new Error('Failed to login');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
       setIsAuthenticated(true);
-      setLoading(false);
       setShowModal(false);
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || 'An error occurred. Please try again.',
-      );
+    } catch (err) {
+      const errorMessage = (err as Error).message;
+      setError(errorMessage);
+    } finally {
       setLoading(false);
     }
   };
@@ -126,7 +108,7 @@ const Login = ({ setShowModal }: LoginProps) => {
         <hr className="border-base-200 border-2 w-full h-0 rounded-xl" />
       </div>
       <div className="flex flex-col gap-3">
-        {!userInfo &&
+        {!isAuthenticated &&
           Object.keys(providers).map((provider) => (
             <a
               className="btn btn-primary btn-outline flex items-center gap-2"
