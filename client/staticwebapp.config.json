@@ -1,14 +1,4 @@
 {
-  "routes": [
-    {
-      "route": "/api/*",
-      "allowedRoles": ["anonymous"]
-    },
-    {
-      "route": "/*",
-      "rewrite": "/index.html"
-    }
-  ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": ["*.css", "*.scss", "*.js", "*.png", "*.gif", "*.jpg", "*.svg"]
