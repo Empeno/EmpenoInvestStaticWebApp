@@ -7,11 +7,6 @@ interface Industry {
   Description: string;
 }
 
-const Endpoint =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:7071/api/http_trigger'
-    : '/data-api/rest/Industries';
-
 interface SelectIndustryProps {
   onIndustryCreated?: (newIndustry: Industry) => void;
 }
@@ -32,25 +27,40 @@ const SelectIndustry: React.FC<SelectIndustryProps> = ({
   useEffect(() => {
     const fetchIndustries = async () => {
       try {
-        const response = await fetch(Endpoint);
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        };
+
+        // Fetch Industries data
+        const response = await fetch(
+          'http://localhost:4280/data-api/rest/Industries',
+          {
+            method: 'GET',
+            headers: headers,
+            credentials: 'omit', // Prevents authentication headers if not needed
+          },
+        );
+
         if (!response.ok) {
-          throw new Error('Failed to fetch industries');
+          throw new Error(
+            `Failed to fetch industries, Status: ${response.status}`,
+          );
         }
+
         const data = await response.json();
 
-        if (data.industries && typeof data.industries === 'object') {
-          const industriesArray = Object.entries(data.industries).flatMap(
-            ([, industryGroup]: [string, any]) =>
-              industryGroup.companies.map((company: any) => ({
-                Name: company.name,
-                Id: company.ticker,
-                Description: company.currentPrice,
-              })),
-          );
-          setIndustries(industriesArray);
+        if (
+          data.value &&
+          Array.isArray(data.value) &&
+          data.value.every(
+            (industry: Industry) =>
+              industry && typeof industry.Name === 'string',
+          )
+        ) {
+          setIndustries(data.value);
         } else {
           throw new Error(
-            'Fetched data is not an object with industries property',
+            'Fetched data is not an array of objects with Name property',
           );
         }
       } catch (error) {
@@ -69,7 +79,7 @@ const SelectIndustry: React.FC<SelectIndustryProps> = ({
         </div>
         <select
           className="select select-bordered"
-          value={selectedIndustry !== null ? String(selectedIndustry) : ''}
+          value={selectedIndustry ?? ''}
           onChange={(e) => setSelectedIndustry(Number(e.target.value))}
         >
           <option disabled value="">
