@@ -11,16 +11,44 @@ const UploadManuel = () => {
 
   return (
     <div className="flex flex-col gap-5 ">
-      <SelectIndustry onIndustryCreated={handleIndustryCreated} />
+      <form action="">
+        <SelectIndustry onIndustryCreated={handleIndustryCreated} />
 
-      <input
-        type="text"
-        placeholder="Enter data manually"
-        className="input input-bordered"
-      />
-      <button type="submit" className="btn btn-primary">
-        Create data
-      </button>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Stock name</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+          />
+        </label>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Ticker Symbol</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+          />
+        </label>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">Quantity</span>
+          </div>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+          />
+        </label>
+
+        <button type="submit" className="btn btn-primary">
+          Create data
+        </button>
+      </form>
 
       {showToast && (
         <div className="toast toast-end">

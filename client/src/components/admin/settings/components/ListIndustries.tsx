@@ -1,75 +1,46 @@
 import { useState, useEffect } from 'react';
+import { FaPen, FaTrash } from 'react-icons/fa6';
 
 interface Industry {
-  Id: number;
   Name: string;
-  Description: string;
 }
 
 const ListIndustries = () => {
   const [industries, setIndustries] = useState<Industry[]>([]);
 
   useEffect(() => {
-    const fetchIndustries = async () => {
-      try {
-        const response = await fetch('/data-api/rest/Industries');
-        if (!response.ok) {
-          throw new Error('Failed to fetch industries');
-        }
-        const data = await response.json();
-        if (
-          data.value &&
-          Array.isArray(data.value) &&
-          data.value.every(
-            (industry: Industry) =>
-              industry && typeof industry.Name === 'string',
-          )
-        ) {
-          setIndustries(data.value);
-        } else {
-          throw new Error(
-            'Fetched data is not an array of objects with Name property',
-          );
-        }
-      } catch (error) {
-        console.error('Error fetching industries:', error);
-      }
+    const fetchIndustries = () => {
+      const data = [
+        { Name: 'Technology' },
+        { Name: 'Healthcare' },
+        { Name: 'Finance' },
+        { Name: 'Education' },
+        { Name: 'Retail' },
+      ];
+      setIndustries(data);
     };
 
     fetchIndustries();
   }, []);
 
-  const handleEdit = (id: number) => {
-    // Implement edit functionality
-    console.log(`Edit industry with id: ${id}`);
-  };
-
-  const handleDelete = (id: number) => {
-    // Implement delete functionality
-    console.log(`Delete industry with id: ${id}`);
-  };
-
   return (
-    <div className="flex flex-col gap-5">
-      <h2 className="text-xl font-bold">Industries</h2>
-      <ul className="list-disc pl-5">
-        {industries.map((industry) => (
-          <li key={industry.Id} className="flex justify-between items-center">
-            <span>{industry.Name}</span>
-            <div>
-              <button
-                className="btn btn-secondary btn-sm mr-2"
-                onClick={() => handleEdit(industry.Id)}
-              >
-                Edit
-              </button>
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => handleDelete(industry.Id)}
-              >
-                Delete
-              </button>
+    <div className="max-w-lg flex flex-col gap-10">
+      <h3 className="text-2xl font-bold">List of industries</h3>
+      <ul className="flex flex-col gap-5">
+        {industries.map((industry, index) => (
+          <li key={index} className="">
+            <div className="flex justify-between items-center pb-5">
+              <div>{industry.Name}</div>
+              <div className="flex gap-5">
+                <button className="btn">
+                  <FaPen /> Edit
+                </button>
+                <button className="btn">
+                  <FaTrash /> Delete
+                </button>
+              </div>
             </div>
+            <hr className="border-base-300 rounded-md" />
           </li>
         ))}
       </ul>
