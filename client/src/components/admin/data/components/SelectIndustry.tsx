@@ -11,9 +11,7 @@ interface SelectIndustryProps {
   onIndustryCreated?: (newIndustry: Industry) => void;
 }
 
-const SelectIndustry: React.FC<SelectIndustryProps> = ({
-  onIndustryCreated,
-}) => {
+const SelectIndustry = ({ onIndustryCreated }: SelectIndustryProps) => {
   const [selectedIndustry, setSelectedIndustry] = useState<number | null>(null);
   const [industries, setIndustries] = useState<Industry[]>([]);
 
@@ -27,19 +25,12 @@ const SelectIndustry: React.FC<SelectIndustryProps> = ({
   useEffect(() => {
     const fetchIndustries = async () => {
       try {
-        const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-        };
-
-        // Fetch Industries data
-        const response = await fetch(
-          'http://localhost:4280/data-api/rest/Industries',
-          {
-            method: 'GET',
-            headers: headers,
-            credentials: 'omit', // Prevents authentication headers if not needed
+        const response = await fetch('/data-api/rest/Industries', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        );
+        });
 
         if (!response.ok) {
           throw new Error(
