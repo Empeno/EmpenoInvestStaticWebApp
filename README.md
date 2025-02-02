@@ -35,7 +35,7 @@ To start the application locally, follow these steps:
    Create a `.env` file in the root of your project and configure it with your Azure SQL Database connection string:
 
    ```env
-   DATABASE_URL="your-azure-sql-connection-string"
+  DATABASE_CONNECTION_STRING="connection-string-sql-authentication"
    ```
 
 4. **Run the application**
