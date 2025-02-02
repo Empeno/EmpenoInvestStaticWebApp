@@ -28,7 +28,7 @@ jobs:
           action: "upload"
           app_location: "client" # Adjust based on your project
           api_location: "api" # Set to "" if not using API
-          output_location: "client/dist" # Ensure this matches your Vite build output
+          output_location: "dist" # Ensure this matches your Vite build output
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
