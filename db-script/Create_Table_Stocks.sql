@@ -1,12 +1,14 @@
-CREATE TABLE [dbo].[Stocks]
+CREATE TABLE [dbo].[Stocks] 
 (
-    [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- Auto-incrementing integer ID
-    [Name] NVARCHAR(50) NOT NULL,
-    TradeDate DATE,
-    Quantity INT,
-    PurchasePrice DECIMAL(18,2),
-    Fees DECIMAL(18,2),
-    IndustryID INT FOREIGN KEY REFERENCES Industries(Id), -- Integer foreign key
-    [ColumnName3] NVARCHAR(50) NOT NULL
+    [StockId] UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY, 
+    [Name] NVARCHAR(100) NOT NULL,
+    [Ticker] NVARCHAR(10) NOT NULL UNIQUE, 
+    [IndustryId] UNIQUEIDENTIFIER NOT NULL, 
+    [Price] DECIMAL(18,2) NOT NULL, 
+    [CreatedAt] DATETIME DEFAULT GETDATE(),
+    [Quantity] INT NOT NULL DEFAULT 0
+
+    CONSTRAINT FK_Stocks_Industries FOREIGN KEY ([IndustryId])
+    REFERENCES [dbo].[Industries]([Id]) ON DELETE CASCADE
 );
 GO

@@ -1,4 +1,3 @@
-// src/context/ThemeContext.tsx
 import { createContext, useState, useEffect, ReactNode } from 'react';
 
 interface ThemeContextType {
@@ -13,7 +12,7 @@ export const ThemeContext = createContext<ThemeContextType>({
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<string>(() => {
-    return localStorage.getItem('cmyk') || 'winter';
+    return localStorage.getItem('theme') || 'cmyk';
   });
 
   useEffect(() => {

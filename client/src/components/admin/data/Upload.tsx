@@ -18,7 +18,7 @@ const Upload = () => {
             defaultChecked={!isManual}
             onChange={() => setIsManual(false)}
           />
-          <span className="text-lg">File</span>
+          <span className="text-lg"> CSV File</span>
         </label>
         <label className="flex gap-2 items-center">
           <input

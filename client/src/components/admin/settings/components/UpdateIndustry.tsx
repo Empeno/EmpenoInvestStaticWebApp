@@ -6,56 +6,59 @@ interface Industry {
   Description: string;
 }
 
-const CreateIndustry = ({
+const UpdateIndustry = ({
+  industry,
   setIndustryModal,
-  setIndustries,
-  handleIndustryCreated,
+  handleIndustryUpdated,
 }: {
+  industry: Industry;
   setIndustryModal: (isOpen: boolean) => void;
-  setIndustries: React.Dispatch<React.SetStateAction<Industry[]>>;
-  handleIndustryCreated: (newIndustry: Industry) => void;
+  handleIndustryUpdated: (updatedIndustry: Industry) => void;
 }) => {
-  const [industryName, setIndustryName] = useState('');
-  const [industryDescription, setIndustryDescription] = useState('');
+  const [industryName, setIndustryName] = useState(industry.Name);
+  const [industryDescription, setIndustryDescription] = useState(
+    industry.Description,
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createIndustry = async () => {
+  const updateIndustry = async () => {
     setLoading(true);
     setError(null);
 
-    const newIndustry = {
+    const updatedIndustry = {
       Name: industryName,
       Description: industryDescription,
     };
 
     try {
-      const response = await fetch('/data-api/rest/Industries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newIndustry),
-      });
+      const response = await fetch(
+        `/data-api/rest/Industries/Id/${industry.Id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(updatedIndustry),
+        },
+      );
+      const responseText = await response.text();
+      console.log('🔄 Full API Response:', responseText);
 
       if (!response.ok) {
-        throw new Error(`Failed to create industry: ${response.status}`);
+        throw new Error(
+          `Failed to update industry: ${response.status} - ${responseText}`,
+        );
       }
+      const result = JSON.parse(responseText);
+      console.log('✅ Updated Industry Response:', result);
 
-      const result = await response.json();
-      console.log('Created Industry Response:', result);
-      const createdIndustry = result.value?.[0];
-
-      if (!createdIndustry || !createdIndustry.Id) {
-        throw new Error('Error: Created industry does not have a valid ID.');
-      }
-
-      setIndustries((prevIndustries) => [...prevIndustries, createdIndustry]);
-
-      handleIndustryCreated(createdIndustry);
+      handleIndustryUpdated({ Id: industry.Id, ...updatedIndustry });
       setIndustryModal(false);
     } catch (err) {
-      const errorMessage = (err as Error).message;
-      console.error('❌ Error:', errorMessage);
-      setError(errorMessage);
+      console.error('❌ Error:', err);
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -64,12 +67,12 @@ const CreateIndustry = ({
   return (
     <div className="modal modal-open">
       <div className="modal-box flex flex-col gap-2 md:p-12">
-        <h3 className="font-bold text-xl">Create New Industry</h3>
+        <h3 className="font-bold text-xl">Update Industry</h3>
 
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            createIndustry();
+            updateIndustry();
           }}
           className="flex flex-col gap-5"
         >
@@ -86,6 +89,7 @@ const CreateIndustry = ({
             className="textarea textarea-bordered textarea-lg resize-none"
             value={industryDescription}
             onChange={(e) => setIndustryDescription(e.target.value)}
+            rows={5}
             required
           ></textarea>
           {error && <p className="text-red-500">{error}</p>}
@@ -95,7 +99,7 @@ const CreateIndustry = ({
               className="btn btn-primary"
               disabled={loading}
             >
-              {loading ? 'Creating...' : 'Create'}
+              {loading ? 'Updating...' : 'Update'}
             </button>
 
             <button
@@ -112,4 +116,4 @@ const CreateIndustry = ({
   );
 };
 
-export default CreateIndustry;
+export default UpdateIndustry;
