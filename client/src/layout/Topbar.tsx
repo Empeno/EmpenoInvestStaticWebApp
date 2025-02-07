@@ -17,7 +17,9 @@ const Topbar = ({ title }: TopbarProps) => {
       <div>
         {!isAuthenticated && (
           <div className="flex gap-5">
-            <LoginModal />
+            <div className="hidden md:flex">
+              <LoginModal />
+            </div>
             <ThemeSwitch />
           </div>
         )}
