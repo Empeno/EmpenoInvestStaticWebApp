@@ -50,7 +50,7 @@ const SelectIndustry = ({
           }}
         >
           <option disabled value="">
-            {industries.length === 0 ? 'Loading...' : 'Pick one'}
+            {industries.length === 0 ? 'Loading...' : 'Choose an industry'}
           </option>
           {industries.map((industry) => (
             <option key={industry.Id} value={industry.Id}>
