@@ -112,8 +112,8 @@ const UploadManuel = () => {
           </div>
           <input
             type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Type Name (e.g., Novo Nordisk A/S)"
+            className="input input-bordered input-md w-full max-w-xs"
             value={stockName}
             onChange={(e) => setStockName(e.target.value)}
             required
@@ -125,8 +125,8 @@ const UploadManuel = () => {
           </div>
           <input
             type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Type Ticker (e.g., NOVO-B)"
+            className="input input-bordered input-md w-full max-w-xs"
             value={ticker}
             onChange={(e) => setTicker(e.target.value)}
             required

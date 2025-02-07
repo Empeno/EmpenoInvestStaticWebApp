@@ -70,7 +70,7 @@ const ListIndustries = () => {
     <div className="max-w-f lg:max-w-lg flex flex-col gap-10">
       <h3 className="text-2xl font-bold">List of industries</h3>
       {loading ? (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-3 items-center">
           <span className="loading loading-spinner loading-md"></span>
           <span>Loading data...</span>
         </div>

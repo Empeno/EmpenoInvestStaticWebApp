@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { MdFileUpload, MdHistory, MdSettings } from 'react-icons/md';
-
-import History from '../components/admin/history/History';
+import {
+  MdFileUpload,
+  MdOutlineCorporateFare,
+  MdSettings,
+} from 'react-icons/md';
 import Settings from '../components/admin/settings/Settings';
-import Upload from '../components/admin/data/Upload';
+import Upload from '../components/admin/upload/Upload';
+import Assets from '../components/admin/assets/Assets';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('upload'); // Standard til "data"
@@ -30,14 +33,14 @@ const Admin = () => {
         <button
           role="tab"
           className={`tab gap-2  ${
-            activeTab === 'history'
+            activeTab === 'assets'
               ? 'bg-neutral text-neutral-content rounded-lg shadow-md'
               : ''
           }`}
-          onClick={() => setActiveTab('history')}
+          onClick={() => setActiveTab('assets')}
         >
-          <MdHistory />
-          History
+          <MdOutlineCorporateFare />
+          Assets
         </button>
         <button
           role="tab"
@@ -60,9 +63,9 @@ const Admin = () => {
             <Upload />
           </div>
         )}
-        {activeTab === 'history' && (
+        {activeTab === 'assets' && (
           <div className="bg-base-100 rounded-lg shadow-md p-5 md:p-7">
-            <History />
+            <Assets />
           </div>
         )}
         {activeTab === 'settings' && (

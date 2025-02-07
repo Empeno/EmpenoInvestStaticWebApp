@@ -8,8 +8,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import ProfileTab from '../components/ProfileTab';
 import LoginModal from '../components/auth/LoginModal';
-import logoBlack from '../assets/EmpenoInvestBlack.png';
-import logoWhite from '../assets/EmpenoInvestWhite.png';
+import logoBlack from '../../public/EmpenoInvestBlack.png';
+import logoWhite from '../../public/EmpenoInvestWhite.png';
 import { ThemeContext } from '../context/ThemeContext';
 
 const Navbar = () => {
