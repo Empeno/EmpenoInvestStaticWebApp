@@ -2,11 +2,12 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Navbar from './layout/Navbar';
 import Topbar from './layout/Topbar';
-import Admin from './pages/Admin';
 import Analytics from './pages/Analytics';
 import ProtectedRoute from './utils/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import Admin from './pages/Admin';
+import Settings from './pages/Settings';
 
 interface PageTitleMapping {
   [path: string]: string;
@@ -19,6 +20,7 @@ const App = () => {
     '/': 'Dashboard',
     '/analytics': 'Analytics',
     '/admin': 'Admin',
+    '/settings': 'Settings',
   };
 
   const currentTitle = pageTitles[location.pathname] || 'Default Title';
@@ -37,6 +39,12 @@ const App = () => {
                 path="/admin"
                 element={<ProtectedRoute element={<Admin />} />}
               />
+
+              <Route
+                path="/settings"
+                element={<ProtectedRoute element={<Settings />} />}
+              />
+
               <Route
                 path="/*"
                 element={<h1 className="text-xl font-bold">Not Found</h1>}

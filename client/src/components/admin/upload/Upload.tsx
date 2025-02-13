@@ -1,40 +1,33 @@
 import { useState } from 'react';
-
-import UploadManuel from './components/UploadManuel';
-import UploadFile from './components/UploadFile';
+import UploadFile from './UploadFile';
+import { MdUpload } from 'react-icons/md';
 
 const Upload = () => {
-  const [isManual, setIsManual] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
+
+  const openUploadModal = () => {
+    setUploadModal(true);
+  };
+
+  const closeUploadModal = () => {
+    setUploadModal(false);
+  };
 
   return (
-    <div className="flex flex-col gap-5">
-      <span className="text-xl font-bold">Upload new data</span>
-      <div className="flex gap-5">
-        <label className="flex gap-2 items-center">
-          <input
-            type="radio"
-            name="radio-1"
-            className="radio"
-            defaultChecked={!isManual}
-            onChange={() => setIsManual(false)}
-          />
-          <span className="text-lg"> CSV File</span>
-        </label>
-        <label className="flex gap-2 items-center">
-          <input
-            type="radio"
-            name="radio-1"
-            className="radio"
-            defaultChecked={isManual}
-            onChange={() => setIsManual(true)}
-          />
-          <span className="text-lg">Manuel</span>
-        </label>
-      </div>
-      <div className="flex flex-col gap-5">
-        {isManual ? <UploadManuel /> : <UploadFile />}
-      </div>
-    </div>
+    <>
+      <button onClick={openUploadModal} className="btn btn-primary">
+        <MdUpload size={17} /> Upload data
+      </button>
+
+      {uploadModal && (
+        <div className="modal modal-open">
+          <div className="modal-box p-10">
+            <UploadFile closeModal={closeUploadModal} />
+            <div className="modal-action"></div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -17,6 +17,7 @@ body {
 }
 
 .tab-active {
-	background-color: oklch(var(--b1));
+	background-color: oklch(var(--n));
+	color: oklch(var(--nc));
 	border-radius: 8px;
 }

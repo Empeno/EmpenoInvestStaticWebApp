@@ -1,6 +1,8 @@
 import {
   MdAdminPanelSettings,
   MdInsertChart,
+  MdListAlt,
+  MdSettings,
   MdSpaceDashboard,
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
@@ -45,12 +47,17 @@ const Navbar = () => {
         </div>
         {isAuthenticated && (
           <div className=" hidden md:flex flex-col">
-            <span className="text-sm text-gray-400 font-bold pl-6">Admin</span>
             <ul className="menu rounded-box w-56 menu-lg tracking-wide gap-2">
               <li>
                 <NavLink to="/admin">
-                  <MdAdminPanelSettings />
+                  <MdListAlt />
                   Admin
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/settings">
+                  <MdSettings />
+                  Settings
                 </NavLink>
               </li>
             </ul>
@@ -79,7 +86,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <span className="text-neutral text-xs p-5 hidden md:flex">
+      <span className="text-gray-500 text-xs p-5 hidden md:flex">
         © Empeno 2025
       </span>
       <div className="flex md:hidden">

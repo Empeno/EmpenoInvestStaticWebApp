@@ -16,7 +16,7 @@ const Topbar = ({ title }: TopbarProps) => {
       <span className="md:text-xl font-semibold">{title}</span>
       <div>
         {!isAuthenticated && (
-          <div className="flex gap-5">
+          <div className="flex gap-10">
             <div className="hidden md:flex">
               <LoginModal />
             </div>

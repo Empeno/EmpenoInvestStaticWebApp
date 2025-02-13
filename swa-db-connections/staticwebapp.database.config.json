@@ -19,7 +19,8 @@
           "http://localhost:5173",
           "http://localhost:4280",
           "http://localhost:5000",
-          "https://invest.empeno.dk"
+          "https://invest.empeno.dk",
+          "https://func-empeno-invest.azurewebsites.net/"
         ],
         "allow-credentials": false
       },
@@ -39,8 +40,8 @@
         }
       ]
     },
-    "Stocks": {
-      "source": "dbo.Stocks",
+    "Companies": {
+      "source": "dbo.Companies",
       "permissions": [
         {
           "actions": ["*"],

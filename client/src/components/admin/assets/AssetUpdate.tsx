@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import SelectIndustry from '../upload/components/SelectIndustry';
+import SelectIndustry from '../upload/SelectIndustry';
 import { MdArrowBackIos } from 'react-icons/md';
 
 interface Stock {
