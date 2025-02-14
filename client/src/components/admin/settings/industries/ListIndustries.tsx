@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MdArrowForward, MdNavigateNext } from 'react-icons/md';
+import { MdNavigateNext } from 'react-icons/md';
 import ViewIndustry from './ViewIndustry';
 
 interface Industry {

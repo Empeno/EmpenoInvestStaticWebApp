@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { FaPen, FaTrash } from 'react-icons/fa6';
+import { MdArrowForward } from 'react-icons/md';
+import ViewCompany from './ViewCompany';
 
 interface Company {
   Id: string;
@@ -11,8 +12,6 @@ interface Company {
 const ListCompanies = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
 
   useEffect(() => {
@@ -34,35 +33,15 @@ const ListCompanies = () => {
     fetchCompanies();
   }, []);
 
-  const deleteCompany = async (id: string) => {
-    try {
-      const response = await fetch(`/data-api/rest/Companies/Id/${id}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(
-          `Failed to delete company: ${response.status} - ${errorText}`,
-        );
-      }
-      setCompanies((prevCompanies) =>
-        prevCompanies.filter((company) => company.Id !== id),
-      );
-      setDeleteModalOpen(false);
-    } catch (error) {
-      console.error('❌ Error deleting company:', error);
-    }
-  };
-
-  const handleCompanyUpdated = (updatedCompany: Company) => {
-    setCompanies((prevCompanies) =>
-      prevCompanies.map((company) =>
-        company.Id === updatedCompany.Id ? updatedCompany : company,
-      ),
+  if (selectedCompany) {
+    return (
+      <ViewCompany
+        company={selectedCompany}
+        goBack={() => setSelectedCompany(null)}
+        setUpdateModalOpen={() => {}}
+      />
     );
-  };
+  }
 
   return (
     <div className="max-w-f lg:max-w-lg flex flex-col gap-10">
@@ -81,21 +60,9 @@ const ListCompanies = () => {
                 <div className="flex gap-5">
                   <button
                     className="btn btn-sm btn-ghost"
-                    onClick={() => {
-                      setSelectedCompany(company);
-                      setUpdateModalOpen(true);
-                    }}
+                    onClick={() => setSelectedCompany(company)}
                   >
-                    <FaPen /> Edit
-                  </button>
-                  <button
-                    className="btn btn-sm btn-ghost"
-                    onClick={() => {
-                      setSelectedCompany(company);
-                      setDeleteModalOpen(true);
-                    }}
-                  >
-                    <FaTrash /> Delete
+                    <MdArrowForward /> Details
                   </button>
                 </div>
               </div>
@@ -103,37 +70,6 @@ const ListCompanies = () => {
             </li>
           ))}
         </ul>
-      )}
-
-      {/* {isUpdateModalOpen && selectedCompany && (
-        <UpdateCompany
-          company={selectedCompany}
-          setCompanyModal={setUpdateModalOpen}
-          handleCompanyUpdated={handleCompanyUpdated}
-        />
-      )} */}
-
-      {isDeleteModalOpen && selectedCompany && (
-        <div className="modal modal-open">
-          <div className="modal-box flex flex-col gap-3 sm:p-12">
-            <h3 className="font-bold text-xl">Confirm Delete</h3>
-            <p className="md:text-lg">
-              Are you sure you want to delete the company "
-              {selectedCompany.Name}"?
-            </p>
-            <div className="flex justify-end gap-5">
-              <button
-                className="btn btn-error"
-                onClick={() => deleteCompany(selectedCompany.Id)}
-              >
-                Delete
-              </button>
-              <button className="btn" onClick={() => setDeleteModalOpen(false)}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
       )}
     </div>
   );

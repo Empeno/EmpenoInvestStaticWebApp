@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Industry {
   Id: string;
   Name: string;
