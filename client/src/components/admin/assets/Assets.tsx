@@ -1,6 +1,6 @@
-import AssetsList from './AssetsList';
 import { FaSearch } from 'react-icons/fa';
 import Upload from '../upload/Upload';
+import AssetsList from './AssetsList';
 
 const Assets = () => {
   return (
