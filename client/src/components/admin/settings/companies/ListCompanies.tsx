@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MdArrowForward } from 'react-icons/md';
+import { MdNavigateNext } from 'react-icons/md';
 import ViewCompany from './ViewCompany';
 
 interface Company {
@@ -59,10 +59,10 @@ const ListCompanies = () => {
                 <div>{company.Name}</div>
                 <div className="flex gap-5">
                   <button
-                    className="btn btn-sm btn-ghost"
+                    className="btn btn-sm"
                     onClick={() => setSelectedCompany(company)}
                   >
-                    <MdArrowForward /> Details
+                    Details <MdNavigateNext size={17} />
                   </button>
                 </div>
               </div>
