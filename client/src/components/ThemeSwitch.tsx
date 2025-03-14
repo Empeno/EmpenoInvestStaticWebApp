@@ -12,7 +12,7 @@ const ThemeSwitch = () => {
       <input
         type="checkbox"
         className="theme-controller"
-        checked={theme === 'night'}
+        checked={theme === 'dark'}
         onChange={toggleTheme}
       />
 

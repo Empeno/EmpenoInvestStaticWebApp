@@ -64,8 +64,8 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      <div className="flex md:hidden fixed bottom-7 left-1/2 transform -translate-x-1/2 w-full justify-center">
-        <ul className="menu menu-horizontal menu-lg bg-base-200 rounded-box">
+      <div className="flex md:hidden fixed bottom-7 left-1/2 transform -translate-x-1/2 w-full justify-center z-50">
+        <ul className="menu menu-horizontal menu-lg bg-base-200 rounded-box ">
           <li>
             <NavLink to="/">
               <MdSpaceDashboard size={25} />
